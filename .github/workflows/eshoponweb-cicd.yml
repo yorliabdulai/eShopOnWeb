@@ -27,13 +27,16 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-
+        working-directory: src
+        
       - name: Build
         run: dotnet build --no-restore --configuration Release
-
+        working-directory: src
+        
       - name: Run tests
         run: dotnet test --no-build --verbosity normal
-
+        working-directory: src
+        
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -50,10 +53,12 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-
+        working-directory: src
+        
       - name: Publish
         run: dotnet publish --no-restore --configuration Release --output ./output
-
+        working-directory: src
+        
       - name: Azure Login
         uses: azure/login@v1
         with:
